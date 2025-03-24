@@ -40,8 +40,8 @@ class Array
       
     #if we are dealing with a step argument
     elsif sequence.is_a?(Integer) && sequence > 0 #if the step is 0 or negative, it is not valid
-      (0...self.length).step(sequence) do |i|
-          result << block.call(self[i])
+      (0...self.length).step(sequence) do |i| # use built in step method and iterate 
+          result << block.call(self[i]) #execute the block for every i in range of step
       end
     end
 
