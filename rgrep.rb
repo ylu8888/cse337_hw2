@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
-# Define valid options
-VALID_OPTIONS = %w[-w -p -v -c -m]
+VALID_OPTIONS = ["-w", "-p", "-v", "-c", "-m"]
 INVALID_OPTION_REGEX = /^-[^0-9wpvcm]$/
 
 # Initialize variables
