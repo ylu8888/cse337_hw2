@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 # Check if an option is valid
 VALID_OPTIONS = %w[-w -p -v -c -m]
 INVALID_OPTION_REGEX = /^-[^0-9wpvcm]$/
@@ -57,12 +59,11 @@ end
 matches = []
 
 lines.each do |line|
-  case
-  when options["-w"]
-    matches << line if line.split.any? { |word| word.match(/^#{pattern}$/) }
-  when options["-p"]
+  if options["-w"]
+    matches << line if line.split.any? { |word| word.match(/\b#{pattern}\b/) }
+  elsif options["-p"]
     matches << line if line.match(/#{pattern}/)
-  when options["-v"]
+  elsif options["-v"]
     matches << line unless line.match(/#{pattern}/)
   end
 end
@@ -74,3 +75,18 @@ elsif options["-m"]
 else
   puts matches
 end
+
+=begin
+./rgrep.rb
+./rgrep.rb test.txt
+./rgrep.rb test.txt -f
+./rgrep.rb test.txt –v –m ‘\d’
+./rgrep.rb test.txt –w road
+./rgrep.rb test.txt -w -m road
+./rgrep.rb test.txt -w -c road
+./rgrep.rb test.txt -p `\d\d'  
+./rgrep.rb test.txt -p -c `\d\d' 
+./rgrep.rb test.txt -v `^\d\d'   
+./rgrep.rb test.txt -v -c '^\d\d'
+./rgrep.rb test.txt '\d\d'   
+=end
