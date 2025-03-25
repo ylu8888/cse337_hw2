@@ -1,15 +1,16 @@
 #!/usr/bin/env ruby
 
-# Check if an option is valid
+# Define valid options
 VALID_OPTIONS = %w[-w -p -v -c -m]
-INVALID_OPTION_REGEX = /^-[^0-9wpvcm]$/
+INVALID_OPTION_REGEX = /^-[^wpvcm]$/
 
-# Parsing arguments
+# Initialize variables
 filename = nil
 options = {}
 pattern = nil
 
-ARGV.each_with_index do |arg, index|
+# Parse command-line arguments
+ARGV.each do |arg|
   if arg =~ INVALID_OPTION_REGEX
     puts "Invalid option"
     exit
@@ -45,10 +46,10 @@ if options["-m"] && options["-v"]
   exit
 end
 
-# Default option is -p if none are given
+# Default to -p if no specific options are given
 options["-p"] = true if options.empty?
 
-# Read file and apply search
+# Read file contents
 begin
   lines = File.readlines(filename)
 rescue Errno::ENOENT
@@ -60,7 +61,7 @@ matches = []
 
 lines.each do |line|
   if options["-w"]
-    matches << line if line.split.any? { |word| word.match(/\b#{pattern}\b/) }
+    matches << line if line.match?(/\b#{Regexp.escape(pattern)}\b/)
   elsif options["-p"]
     matches << line if line.match(/#{pattern}/)
   elsif options["-v"]
@@ -68,13 +69,17 @@ lines.each do |line|
   end
 end
 
+# Handle output based on options
 if options["-c"]
   puts matches.size
 elsif options["-m"]
-  matches.each { |line| puts line.scan(/#{pattern}/).join("\n") }
+  matches.each { |match| puts match.scan(/\b#{Regexp.escape(pattern)}\b/) }
 else
   puts matches
 end
+
+
+
 
 =begin
 ./rgrep.rb
