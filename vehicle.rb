@@ -154,9 +154,12 @@ end
 #Test case 1: check electric car initial battery
 puts Hyundai = ElectricCar.new(2024, "Hyundai Electric", "Blue", 80)
 puts Hyundai.current_battery
-
-#Test case 2: check speed up
 puts Hyundai.speed_up(20) 
+puts Hyundai.current_battery
+
+#Test case 2: check charged up electric car
+puts Hyundai.current_battery
+puts Hyundai.charge_battery
 puts Hyundai.current_battery
 
 #Test case 3: check if can speed up when battery is low 
@@ -172,5 +175,5 @@ puts Totoya.current_speed
 #Test case 5: Lets park the truck
 puts Ford = MyTruck.new(2025, "Ford F-150", "Black")
 puts Ford.speed_up(40)
-puts Ford.current_speed 
 puts Ford.shut_down
+puts Ford.current_speed 
