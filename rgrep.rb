@@ -81,39 +81,15 @@ end
 
 =begin
 
-./rgrep.rb
-Missing required arguments
-./rgrep.rb test.txt
-Missing required arguments
-./rgrep.rb test.txt -f
-Invalid option
-./rgrep.rb test.txt –v –m ‘\d’
-Invalid combination of options
-./rgrep.rb test.txt –w road
-101 broad road
-102 high road
-./rgrep.rb test.txt -w -m road
-road
-road
-./rgrep.rb test.txt -w -c road
-2
-./rgrep.rb test.txt -p '\d\d'  
-101 broad road
-101 broad lane
-102 high road
-234 Johnson Street
-Lyndhurst Pl 224
-./rgrep.rb test.txt -p -c '\d\d' 
-5
-./rgrep.rb test.txt -v '^\d\d'   
-Lyndhurst Pl 224
-./rgrep.rb test.txt -v -c '^\d\d'
-1
-./rgrep.rb test.txt '\d\d'   
-101 broad road
-101 broad lane
-102 high road
-234 Johnson Street
-Lyndhurst Pl 224
+# Test case 1: Invalid option
+ruby rgrep.rb test.txt -x
+# Test case 2: File Not Found
+ruby rgrep.rb hubba.txt -w
+# Test case 3: Word search
+ruby rgrep.rb test.txt -w street
+# Test case 4: Regex search with count
+ruby rgrep.rb test.txt -p -c "\d\d"
+# Test case 5: Inverted search
+ruby rgrep.rb test.txt -v "^\d\d"
 
 =end
