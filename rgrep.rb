@@ -2,7 +2,7 @@
 
 # Define valid options
 VALID_OPTIONS = %w[-w -p -v -c -m]
-INVALID_OPTION_REGEX = /^-[^wpvcm]$/
+INVALID_OPTION_REGEX = /^-[^0-9wpvcm]$/
 
 # Initialize variables
 filename = nil
